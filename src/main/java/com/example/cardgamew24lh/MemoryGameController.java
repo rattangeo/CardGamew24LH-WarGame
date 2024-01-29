@@ -1,6 +1,5 @@
 package com.example.cardgamew24lh;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -30,7 +29,7 @@ public class MemoryGameController implements Initializable {
     private int numOfMatches;
 
     @FXML
-    void playAgain(ActionEvent event) {
+    void playAgain() {
         firstCard = null;
         secondCard = null;
 
@@ -51,7 +50,8 @@ public class MemoryGameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        initializeImageView();;
+        playAgain();
     }
 
     /**
