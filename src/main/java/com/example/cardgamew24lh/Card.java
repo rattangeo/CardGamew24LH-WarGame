@@ -118,4 +118,7 @@ public class Card {
         String imageName = "images/" + faceName + "_of_" + suit + ".png";
         return new Image(Card.class.getResourceAsStream(imageName));
     }
+    public Image getBackOfCardImage(){
+        return new Image(Card.class.getResourceAsStream("images/back_of_card.png"));
+    }
 }
