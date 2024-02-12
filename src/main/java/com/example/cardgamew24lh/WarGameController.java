@@ -1,10 +1,12 @@
 package com.example.cardgamew24lh;
 
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -53,10 +55,53 @@ public class WarGameController implements Initializable {
             player2ImageView.setImage(p2Card.getImage());
             centerPileOfCards.add(p2Card);
             updateLabels();
+
+            //check who wins the hand
+            if (p1Card.getCardValue() == p2Card.getCardValue())
+                warHand();
+            else if (p1Card.getCardValue()> p2Card.getCardValue()) {
+                player1Hand.addAll(centerPileOfCards);
+                centerPileOfCards.clear();
+            }
+            else {
+                player2Hand.addAll(centerPileOfCards);
+                centerPileOfCards.clear();
+            }
+
+
         }
+        animateCard(player1ImageView,true);
+        animateCard(player2ImageView,false);
+
 
 
     }
+
+        // Method to animate the card being played
+        private void animateCard(ImageView imageView, boolean fromLeft){
+        //Calculate the translation distance based on the ImageView's width
+            double distance = imageView.getBoundsInLocal().getWidth() * 1.2;
+
+            //set the starting position based on weather it's coming from left or right
+            double startX = fromLeft ? -distance :distance;
+            double endX = 0;
+
+            //Create TranslateTransition for the ImageView
+            TranslateTransition transition = new TranslateTransition(Duration.seconds(1),imageView);
+
+            // Set the translation properties
+            transition.setFromX(startX);
+            transition.setToX(endX);
+
+            // Set  any other animation properties
+            transition.setCycleCount(1);
+
+            //start the animation
+            transition.play();
+
+        }
+
+
 
 
     private void warHand(){
@@ -100,6 +145,10 @@ public class WarGameController implements Initializable {
             player2Hand.add(deck.dealTopCard());
         }
 
+        //force a "war" hand to be first
+//        Card ace = new Card("spades","ace");
+//        player1Hand.add(0,ace);
+//        player2Hand.add(0,ace);
 
 
     }
